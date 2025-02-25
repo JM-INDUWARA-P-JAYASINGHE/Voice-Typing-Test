@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Hat Voice Typing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #222;
+            color: #0ff;
+            transition: background 0.5s, color 0.5s;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #0ff;
+        }
+        .light-mode {
+            background-color: #fff;
+            color: #000;
+        }
+        .light-mode textarea, .light-mode select, .light-mode button {
+            background: #ddd;
+            color: #000;
+            border-color: #000;
+            box-shadow: 0 0 10px #aaa;
+        }
+        select, button {
+            margin: 10px;
+            font-size: 18px;
+            padding: 10px;
+            background: #444;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #aaa;
+        }
+        button:hover, select:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px #fff;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-family: Calibri, sans-serif;
+            padding: 10px;
+            border: 2px solid #fff;
+            background: #333;
+            color: #fff;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <h1>Black Hat Voice Typing</h1>
+    <button onclick="toggleMode()">🌗 Toggle Theme</button>
+    <select id="language">
+        <option value="en-US">English</option>
+        <option value="si-LK">Sinhala</option>
+        <option value="es-ES">Spanish</option>
+        <option value="fr-FR">French</option>
+        <option value="de-DE">German</option>
+        <option value="hi-IN">Hindi</option>
+        <option value="ta-IN">Tamil</option>
+        <option value="zh-CN">Chinese</option>
+        <option value="ar-SA">Arabic</option>
+        <option value="ru-RU">Russian</option>
+    </select>
+    <button onclick="startRecognition()">🎤 Start Voice Typing</button>
+    <textarea id="output" placeholder="Your speech will appear here..."></textarea>
+    <div class="buttons-container">
+        <button onclick="copyText()">📋 Copy</button>
+        <button onclick="cutText()">✂ Cut</button>
+        <button onclick="eraseText()">🗑 Erase</button>
+        <button onclick="undoText()">↩ Undo</button>
+        <button onclick="redoText()">↪ Redo</button>
+        <button onclick="increaseFontSize()">🔼 Increase Font</button>
+        <button onclick="decreaseFontSize()">🔽 Decrease Font</button>
+        <button onclick="saveAsWord()">💾 Save</button>
+        <button onclick="readAloud()">🔊 Read Aloud</button>
+    </div>
+
+    <div id="sfc836b8k74zfs6x1lyamg8m5pbej4mff9s"></div>
+    <script type="text/javascript" src="https://counter6.optistats.ovh/private/counter.js?c=836b8k74zfs6x1lyamg8m5pbej4mff9s&down=async" async></script>
+    <noscript><a href="https://www.freecounterstat.com" title="hit counter"><img src="https://counter6.optistats.ovh/private/freecounterstat.php?c=836b8k74zfs6x1lyamg8m5pbej4mff9s" border="0" title="hit counter" alt="hit counter"></a></noscript>
+
+    <footer>
+        © 2025 Black Hat INC | A Jayasinghe Brothers Holdings Company Limited.
+    </footer>
+
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle("light-mode");
+            document.body.classList.toggle("dark-mode");
+        }
+        function startRecognition() {
+            let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = document.getElementById("language").value;
+            recognition.continuous = false;
+            recognition.onresult = function(event) {
+                document.getElementById("output").value = event.results[0][0].transcript;
+            };
+            recognition.start();
+            setTimeout(() => recognition.stop(), 120000);
+        }
+        function copyText() {
+            let textarea = document.getElementById("output");
+            textarea.select();
+            document.execCommand("copy");
+        }
+        function cutText() {
+            let textarea = document.getElementById("output");
+            textarea.select();
+            document.execCommand("cut");
+        }
+        function eraseText() {
+            document.getElementById("output").value = "";
+        }
+        function readAloud() {
+            let text = document.getElementById("output").value;
+            let speech = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(speech);
+        }
+        function increaseFontSize() {
+            let textarea = document.getElementById("output");
+            let size = parseInt(window.getComputedStyle(textarea).fontSize);
+            textarea.style.fontSize = (size + 2) + "px";
+        }
+        function decreaseFontSize() {
+            let textarea = document.getElementById("output");
+            let size = parseInt(window.getComputedStyle(textarea).fontSize);
+            textarea.style.fontSize = (size - 2) + "px";
+        }
+	
+	
+    </script>
+</body>
+</html>
